@@ -724,10 +724,11 @@ def imread_rasterio(filename, grayscale=False, unchanged=False, anydepth=False):
         # Convert to 8bit
         try:
             data_range = np.iinfo(image.dtype)
+            value_range = float(data_range.max) - float(data_range.min)
         except ValueError:
-            data_range = np.finfo(image.dtype)
-
-        value_range = float(data_range.max - data_range.min)
+            # For floats use the actual range of the image values
+            value_range = float(image.max()) - float(image.min())
+        
         image = image.astype(np.float32)
         image *= 255.0 / value_range
         np.around(image, out=image)
