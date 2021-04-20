@@ -1,4 +1,10 @@
 file(GLOB VLFEAT_SRCS vl/*.c vl/*.h)
+
+if(WIN32)
+    add_definitions(-D__SSE2__)
+    #add_definitions(-DVL_BUILD_DLL)
+endif()
+
 add_library(vl ${VLFEAT_SRCS})
 target_include_directories(vl
   PRIVATE

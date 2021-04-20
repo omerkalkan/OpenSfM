@@ -7,7 +7,12 @@ if(NOT CMAKE_BUILD_TYPE)
       "Choose the type of build, options are: None Debug Release RelWithDebInfo MinSizeRel."
       FORCE)
 endif()
+
+if (WIN32)
+set(CMAKE_MODULE_PATH ${opensfm_SOURCE_DIR}/cmake/win32)
+else()
 set(CMAKE_MODULE_PATH ${opensfm_SOURCE_DIR}/cmake)
+endif()
 
 ####### Compilation Options #######
 # Visibility stuff
@@ -24,6 +29,10 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 # For compiling VLFeat
 add_definitions(-DVL_DISABLE_AVX)
+
+if (WIN32)
+    add_definitions(-DM_PI=3.14159265358979323846)
+endif()
 
 ####### Find Dependencies #######
 find_package(OpenMP)
