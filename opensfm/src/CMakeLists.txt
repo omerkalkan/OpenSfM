@@ -10,6 +10,8 @@ endif()
 
 if (WIN32)
 set(CMAKE_MODULE_PATH ${opensfm_SOURCE_DIR}/cmake/win32)
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY_DEBUG "${opensfm_SOURCE_DIR}/..")
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY_RELEASE "${opensfm_SOURCE_DIR}/..")
 else()
 set(CMAKE_MODULE_PATH ${opensfm_SOURCE_DIR}/cmake)
 endif()

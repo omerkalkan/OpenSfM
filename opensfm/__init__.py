@@ -1,7 +1,8 @@
-# import sys, os
-# if sys.platform == 'win32':
-#     modules_path = os.path.join(os.path.dirname(__file__), "Release")
-#     print(modules_path)
-#     sys.path.insert(0, modules_path)
-
-#     from Release import pyfeatures
+import sys, os
+if sys.platform == 'win32':
+    # Python modules require the OpenCV DLLs
+    # but these might be in a different path
+    if os.environ.get("OPENCV_LIBS"):
+        os.add_dll_directory(os.environ.get("OPENCV_LIBS"))
+        
+    
