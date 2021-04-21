@@ -5,7 +5,7 @@ import setuptools
 import subprocess
 import sys
 from wheel.bdist_wheel import bdist_wheel
-
+import multiprocessing
 
 class platform_bdist_wheel(bdist_wheel):
     """Patched bdist_well to make sure wheels include platform tag."""
@@ -24,13 +24,22 @@ def configure_c_extension():
         '../opensfm/src',
         '-DPYTHON_EXECUTABLE=' + sys.executable,
     ]
+    if sys.platform == 'win32':
+        cmake_command += [
+            '-DVCPKG_TARGET_TRIPLET=x64-windows',
+            '-DCMAKE_TOOLCHAIN_FILE=D:/OpenSfM/vcpkg/scripts/buildsystems/vcpkg.cmake'
+        ]
+
     subprocess.check_call(cmake_command, cwd='cmake_build')
 
 
 def build_c_extension():
     """Compile C extension."""
     print("Compiling extension...")
-    subprocess.check_call(['make', '-j4'], cwd='cmake_build')
+    if sys.platform == 'win32':
+        subprocess.check_call(['cmake', '--build', '.', '--config', 'Release'], cwd='cmake_build')
+    else:
+        subprocess.check_call(['make', '-j' + str(multiprocessing.cpu_count())], cwd='cmake_build')
 
 
 configure_c_extension()
