@@ -137,7 +137,7 @@ class Report:
         # title
         self.pdf.set_font("Helvetica", "B", self.title_size)
         self.pdf.set_text_color(*self.mapi_light_green)
-        self.pdf.cell(0, self.margin, "ODM Quality Report", align="C")
+        self.pdf.cell(0, self.margin, "DroNet Kalite Raporu", align="C")
         self.pdf.set_xy(self.margin, self.title_size)
 
         # version number
@@ -155,7 +155,7 @@ class Report:
         self.pdf.set_font("Helvetica", "", self.small_text)
         self.pdf.set_text_color(*self.mapi_dark_grey)
         self.pdf.cell(
-            0, self.margin, f"Processed with ODM version {version}", align="R"
+            0, self.margin, f"DroNet 1.0.0 ile oluşturuldu", align="R"
         )
         self.pdf.set_xy(self.margin, self.pdf.get_y() + 2 * self.margin)
 
