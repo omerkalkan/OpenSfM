@@ -23,7 +23,7 @@ class Report:
         self.mapi_dark_grey = [0, 0, 0]
 
         self.pdf = FPDF("P", "mm", "A4")
-        self.pdf.add_font('DejaVu', '', 'DejaVuSans.ttf', uni=True)
+        self.pdf.add_font('DejaVu', '', '/usr/share/fonts/truetype/DejaVuSans.ttf', uni=True)
         self.pdf.add_page()
 
         self.title_size = 20
@@ -98,14 +98,14 @@ class Report:
             return io.json_load(fin)
 
     def _make_section(self, title):
-        self.pdf.set_font("DejaVu", "B", self.h1)
+        self.pdf.set_font("DejaVu", "", self.h1)
         self.pdf.set_text_color(*self.mapi_dark_grey)
         self.pdf.cell(0, self.margin, title, align="L")
         self.pdf.set_xy(self.margin, self.pdf.get_y() + 1.5 * self.margin)
 
     def _make_subsection(self, title):
         self.pdf.set_xy(self.margin, self.pdf.get_y() - 0.5 * self.margin)
-        self.pdf.set_font("DejaVu", "B", self.h2)
+        self.pdf.set_font("DejaVu", "", self.h2)
         self.pdf.set_text_color(*self.mapi_dark_grey)
         self.pdf.cell(0, self.margin, title, align="L")
         self.pdf.set_xy(self.margin, self.pdf.get_y() + self.margin)
@@ -136,7 +136,7 @@ class Report:
 
     def make_title(self):
         # title
-        self.pdf.set_font("DejaVu", "B", self.title_size)
+        self.pdf.set_font("DejaVu", "", self.title_size)
         self.pdf.set_text_color(*self.mapi_light_green)
         self.pdf.cell(0, self.margin, "DroNet Kalite Raporu", align="C")
         self.pdf.set_xy(self.margin, self.title_size)
@@ -348,7 +348,7 @@ class Report:
         if len(heatmaps) > 1:
             logger.warning("Please implement multi-model display")
 
-        columns_names = ["", "Min.", "Maks.", "Ortalama", "Medyan"]
+        columns_names = ["", "Min.", "Max.", "Mean", "Median"]
         rows = []
         for comp in ["detected_features", "reconstructed_features"]:
             row = [comp.replace("_", " ").replace("features", "").capitalize()]
