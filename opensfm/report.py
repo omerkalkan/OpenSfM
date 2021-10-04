@@ -23,7 +23,7 @@ class Report:
         self.mapi_dark_grey = [0, 0, 0]
 
         self.pdf = FPDF("P", "mm", "A4")
-        self.pdf.add_font('DejaVu', '', '/usr/share/fonts/truetype/DejaVuSans.ttf', uni=True)
+        self.pdf.add_font('DejaVu', '', '/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf', uni=True)
         self.pdf.add_page()
 
         self.title_size = 20
